@@ -1,6 +1,6 @@
 ---
 exclude_paths:
-  - /ansible/inventory # BUG the inventory files are detected as playbooks by super-lint
+  - ./ansible/inventory/ # BUG the inventory files are detected as playbooks by super-lint
 parseable: true
 
 quiet: true # set output to quiet
