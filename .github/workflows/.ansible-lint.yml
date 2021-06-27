@@ -1,0 +1,18 @@
+---
+exclude_paths:
+  - /ansible/inventory # BUG the inventory files are detected as playbooks by super-lint
+parseable: true
+
+quiet: true # set output to quiet
+
+skip_list:
+  - "empty-string-compare" # Allow compare to empty string
+  - "204" # Allow string length greater than 160 chars
+  - "no-changed-when" # False positives for running command shells
+  - "command-instead-of-module" # Allow git commands for push, add, etc...
+  - "command-instead-of-shell" # Allow use of shell when you want
+  - "no-handler" # Allow step to run like handler
+
+use_default_rules: true
+
+verbosity: 1
