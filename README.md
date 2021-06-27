@@ -61,7 +61,7 @@ Add `ansible_dyn_inv_sa_key.json` , in your `.gitignore` and set `service_accoun
 
 Verify that you can list VM in the inventory using that service account:
 
-`ansible-inventory --graph  -i lab`
+`ansible-inventory --graph  -i inventory`
 
 ```console
 @all:
@@ -76,7 +76,7 @@ Verify that you can list VM in the inventory using that service account:
 ### Run the initial cluster configuration
 
 ```bash
-cd $(git rev-parse --show-toplevel)/ansible && ansible-playbook playbooks/lab.yml -i lab
+cd $(git rev-parse --show-toplevel)/ansible && ansible-playbook playbooks/lab.yml -i inventory
 ```
 
 The playbook does the following:
@@ -93,7 +93,7 @@ The playbook does the following:
 ### add all inventory hosts pub IP to your local workstation /etc/hosts
 
 ```bash
-sudo -s ansible-playbook add_nodes_etc_hosts.yml -i lab
+sudo -s ansible-playbook add_nodes_etc_hosts.yml -i inventory
 ```
 
 ### verify the cluster state
