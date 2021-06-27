@@ -122,4 +122,12 @@ k8s-lab-worker-02       Ready    <none>                 30m   v1.20.1
 
 This repo is using GH Actions to execute [super-linter](https://github.com/github/super-linter).
 
-The goal here is mostly to lint the ansible (YAML), terraform(HCL) and markdown files in the repo.
+The goal here is mostly to lint the ansible (YAML), terraform(HCL) and markdown files in the repo using:
+
+- ansible-lint
+- markdownlint
+- terrascan
+- tflint
+- yamlint
+
+super-linter is an easy, low maintenance way to do it.
