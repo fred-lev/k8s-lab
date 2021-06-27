@@ -1,0 +1,65 @@
+---
+- name: disable swap
+  become: true
+  ansible.builtin.command:
+    argv:
+      - swapoff
+      - -a
+  changed_when: false
+
+- name: disable swap in fstab
+  become: true
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+
+- name: install docker and extra packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - bash-completion
+      - curl
+      - docker.io
+      - vim
+    update_cache: true
+  register: result
+  until: result is not failed
+
+- name: add k8s repository key
+  become: true
+  ansible.builtin.apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg.asc
+  register: result
+  until: result is not failed
+
+- name: add k8s repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    filename: k8s-repo
+    mode: 0444
+    update_cache: true
+
+- name: install k8s packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - kubeadm=1.20.1-00
+      - kubelet=1.20.1-00
+      - kubectl=1.20.1-00
+    update_cache: true
+  register: result
+  until: result is not failed
+
+- name: put k8s packages on hold
+  become: true
+  ansible.builtin.command:
+    argv:
+      - apt-mark
+      - hold
+      - kubeadm
+      - kubelet
+      - kubectl
+  changed_when: false
