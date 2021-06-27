@@ -1,0 +1,67 @@
+# yamllint disable rule:line-length
+---
+- name: initialize the controller node
+  become: true
+  ansible.builtin.command:
+    argv:
+      - kubeadm
+      - init
+      - --kubernetes-version
+      - 1.20.1
+      - --pod-network-cidr
+      - 192.168.0.0/16
+    creates: /etc/kubernetes/manifests/etcd.yaml
+  when: inventory_hostname in groups['k8s_controller']
+
+- name: setup kube config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0755
+    state: directory
+  when: inventory_hostname in groups['k8s_controller']
+
+- name: copy admin kube config
+  become: true
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: 0555
+    remote_src: true
+  when: inventory_hostname in groups['k8s_controller']
+
+- name: install calico from the manifest
+  ansible.builtin.command:
+    argv:
+      - kubectl
+      - apply
+      - -f
+      - https://docs.projectcalico.org/manifests/calico.yaml
+  changed_when: false
+  when: inventory_hostname in groups['k8s_controller']
+
+- name: generate join token
+  ansible.builtin.command:
+    argv:
+      - kubeadm
+      - token
+      - create
+      - --print-join-command
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['k8s_controller'] }}"
+  changed_when: false
+  register: kubeadm_join_cmd
+  no_log: true
+  when: inventory_hostname in groups['k8s_workers']
+
+- name: join worker nodes
+  become: true
+  ansible.builtin.command:
+    argv:
+      - "{{ kubeadm_join_cmd.results.0.stdout }}"
+      - --ignore-preflight-errors=swap
+    creates: /var/lib/kubelet/config.yaml
+  when: inventory_hostname in groups['k8s_workers']

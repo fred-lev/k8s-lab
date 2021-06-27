@@ -1,0 +1,25 @@
+---
+- hosts: k8s_controller,k8s_workers
+  any_errors_fatal: true
+  tasks:
+    - name: disable swap and install required packages
+      ansible.builtin.import_tasks: ../tasks/swap_and_packages.yml
+
+    - name: bootstrap the cluster
+      ansible.builtin.import_tasks: ../tasks/bootstrap_cluster.yml
+
+- hosts: k8s_controller
+  any_errors_fatal: true
+  tasks:
+    - name: configure autocomplete permanently in my bash shell
+      ansible.builtin.blockinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        marker: "### {mark} K8s kubectl autocompletion ###"
+        insertafter: EOF
+        block: |
+          source <(kubectl completion bash)
+          alias k=kubectl
+          complete -F __start_kubectl k
+
+    - name: include dummy user and namespaces creation
+      ansible.builtin.import_tasks: ../tasks/dummy_user_namespaces.yml

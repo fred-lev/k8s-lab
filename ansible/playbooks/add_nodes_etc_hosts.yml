@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+    - name: Add IP address of all hosts to localhost /etc/hosts file
+      become: true
+      lineinfile:
+        dest: /private/etc/hosts
+        regexp: ".*{{ item }}$"
+        line: "{{ hostvars[item].ansible_host }} {{ item }}"
+        state: present
+      loop: "{{ groups.all }}"
+      delegate_to: localhost
+      run_once: true
+      when: hostvars[item].ansible_host is defined

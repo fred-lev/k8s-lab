@@ -1,0 +1,31 @@
+---
+- name: create test users
+  become: true
+  ansible.builtin.user:
+    createhome: true
+    home: "/home/{{ item }}"
+    name: "{{ item }}"
+    password: "{{ 'dummy' | password_hash('sha512', 'RcddhkBccwdDy72C') }}"
+    shell: /bin/bash
+  loop:
+    - dan
+    - paul
+  no_log: true
+  changed_when: false
+
+- name: create random namespaces
+  ansible.builtin.command:
+    argv:
+      - kubectl
+      - create
+      - ns
+      - "{{ item }}"
+  loop:
+    - dev-ns
+    - prod-a
+    - prod-b
+  register: results
+  failed_when:
+    - "'AlreadyExists' not in results.stderr"
+    - "'created' not in results.stdout"
+  changed_when: "'created' in results.stdout"
