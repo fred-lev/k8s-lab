@@ -64,7 +64,9 @@ gcloud iam service-accounts keys create ansible_dyn_inv_sa_key.json --iam-accoun
 
 Verify that you can list VM in the inventory using that service account:
 
-`ansible-inventory --graph  -i inventory`
+```bash
+cd $(git rev-parse --show-toplevel)/ansible && ansible-inventory --graph  -i inventory
+```
 
 ```console
 @all:
@@ -96,7 +98,7 @@ The playbook does the following:
 ### add all inventory hosts to your local workstation hosts file
 
 ```bash
-sudo -s ansible-playbook add_nodes_etc_hosts.yml -i inventory
+cd $(git rev-parse --show-toplevel)/ansible && sudo -s ansible-playbook playbooks/add_nodes_etc_hosts.yml -i inventory
 ```
 
 ### verify the cluster state
