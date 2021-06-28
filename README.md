@@ -88,7 +88,7 @@ The playbook does the following:
 
 - turn off swap on all nodes
 - install required packages
-- install  and mark hold kubeadm, kubelet and kubectl (1.20.1-00)
+- install and mark hold kubeadm, kubelet and kubectl (1.20.1-00)
 - initialize the controller node using kubeadm
 - setup kube config on the controller
 - install calico
