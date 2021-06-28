@@ -8,13 +8,13 @@ The CNI plugin used by the cluster is [Calico](https://docs.projectcalico.org/ab
 
 ## Terraform
 
-The official doc recommend [not to use service accounts during development on local workstation](https://cloud.google.com/iam/docs/best-practices-for-using-and-managing-service-accounts#development)
-
 Retrieve personal google cloud credentials (token):
 
 ```console
 gcloud auth application-default login
 ```
+
+**REM:** The official doc recommend [not to use service accounts during development on local workstation](https://cloud.google.com/iam/docs/best-practices-for-using-and-managing-service-accounts#development)
 
 Create a bucket in asia to store terraform remote state files as defined in [backend.tf](terraform/lab/backend.tf):
 
@@ -28,12 +28,15 @@ Set the bucket name and prefix in [backend.tf](terraform/lab/backend.tf)
 Run the following command to initialize the remote backend and apply the exiting terraform config:
 
 ```bash
-# I am using -auto-approve here since it's a lab.
 cd $(git rev-parse --show-toplevel)/terraform/lab
 terraform init && terraform apply -auto-approve
 ```
 
-## Ansible dynamic inventory for GCP
+**REM:** I am using `-auto-approve` here since it's a lab.
+
+## Ansible
+
+### Dynamic inventory for GCP compute instances
 
 Install required python libraries:
 
@@ -73,7 +76,7 @@ Verify that you can list VM in the inventory using that service account:
   |--@ungrouped:
 ```
 
-### Run the initial cluster configuration
+### Playbook for the initial cluster configuration
 
 ```bash
 cd $(git rev-parse --show-toplevel)/ansible && ansible-playbook playbooks/lab.yml -i inventory
@@ -90,7 +93,7 @@ The playbook does the following:
 - join the worker nodes to the cluster
 - configure kubectl alias and bash completion on controller node
 
-### add all inventory hosts pub IP to your local workstation /etc/hosts
+### add all inventory hosts to your local workstation hosts file
 
 ```bash
 sudo -s ansible-playbook add_nodes_etc_hosts.yml -i inventory
@@ -122,7 +125,7 @@ k8s-lab-worker-02       Ready    <none>                 30m   v1.20.1
 
 This repo is using GH Actions to execute [super-linter](https://github.com/github/super-linter).
 
-The goal here is mostly to lint the ansible (YAML), terraform(HCL) and markdown files in the repo using:
+I am mostly interested in linting the ansible (YAML), terraform(HCL) and markdown files in the repo using:
 
 - ansible-lint
 - markdownlint
