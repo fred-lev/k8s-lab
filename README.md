@@ -60,7 +60,7 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansi
 gcloud iam service-accounts keys create ansible_dyn_inv_sa_key.json --iam-account=ansible-dyn-inv@$GCP_PROJECT.iam.gserviceaccount.com
 ```
 
-**REM:** Add `ansible_dyn_inv_sa_key.json` , in your `.gitignore` and set `service_account_file:ansible_dyn_inv_sa_key.json` variable in [cks_project.gcp.yml](ansible/lab/cks_project.gcp.yml)
+**REM:** Add `ansible_dyn_inv_sa_key.json` , in your `.gitignore` and set `service_account_file:ansible_dyn_inv_sa_key.json` variable in [cks_project.gcp.yml](ansible/inventory/cks_project.gcp.yml)
 
 Verify that you can list VM in the inventory using that service account:
 
