@@ -4,7 +4,7 @@
     - name: Add IP address of all hosts to localhost /etc/hosts file
       become: true
       lineinfile:
-        dest: /private/etc/hosts
+        dest: /etc/hosts
         regexp: ".*{{ item }}$"
         line: "{{ hostvars[item].ansible_host }} {{ item }}"
         state: present
