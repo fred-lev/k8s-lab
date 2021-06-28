@@ -60,8 +60,6 @@
 - name: join worker nodes
   become: true
   ansible.builtin.command:
-    argv:
-      - "{{ kubeadm_join_cmd.results.0.stdout }}"
-      - --ignore-preflight-errors=swap
+    cmd: "{{ kubeadm_join_cmd.results.0.stdout }} --ignore-preflight-errors=swap"
     creates: /var/lib/kubelet/config.yaml
   when: inventory_hostname in groups['k8s_workers']
