@@ -2,7 +2,7 @@
 
 The code in this repo deploys and configure a simple kubernetes cluster running in GCP.
 
-By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjust by increasing `worker.count` in [terraform.tfvars](terraform/lab/terraform.tfvars)
+By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjusted by increasing `worker.count` in [terraform.tfvars](terraform/lab/terraform.tfvars)
 
 The CNI plugin used by the cluster is [Calico](https://docs.projectcalico.org/about/about-calico).
 
