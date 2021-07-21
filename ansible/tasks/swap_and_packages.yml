@@ -22,6 +22,7 @@
       - bash-completion
       - curl
       - docker.io
+      - etcd-client
       - vim
     update_cache: true
   register: result
