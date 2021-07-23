@@ -98,7 +98,7 @@ The playbook does the following:
 ### add all inventory hosts to your local workstation hosts file
 
 ```bash
-cd $(git rev-parse --show-toplevel)/ansible && sudo -s ansible-playbook playbooks/add_nodes_etc_hosts.yml -i inventory
+cd $(git rev-parse --show-toplevel)/ansible && sudo ansible-playbook playbooks/add_nodes_etc_hosts.yml -i inventory
 ```
 
 ### verify the cluster state
