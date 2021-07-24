@@ -8,9 +8,6 @@
     - name: bootstrap the cluster
       ansible.builtin.import_tasks: ../tasks/bootstrap_cluster.yml
 
-- hosts: k8s_controller
-  any_errors_fatal: true
-  tasks:
     - name: configure autocomplete permanently in my bash shell
       ansible.builtin.blockinfile:
         path: "{{ ansible_env.HOME }}/.bashrc"
@@ -21,5 +18,8 @@
           alias k=kubectl
           complete -F __start_kubectl k
 
+- hosts: k8s_controller
+  any_errors_fatal: true
+  tasks:
     - name: include dummy user and namespaces creation
       ansible.builtin.import_tasks: ../tasks/dummy_user_namespaces.yml
