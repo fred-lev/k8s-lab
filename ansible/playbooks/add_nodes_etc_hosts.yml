@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  gather_facts: false
   tasks:
     - name: Add IP address of all hosts to localhost /etc/hosts file
       become: true
