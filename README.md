@@ -1,5 +1,7 @@
 # Kubernetes lab environment
 
+[![Lint Code Base](https://github.com/fred-lev/k8s-gcp-lab/actions/workflows/linter.yml/badge.svg?branch=main)](https://github.com/fred-lev/k8s-gcp-lab/actions/workflows/linter.yml)
+
 The code in this repo deploys and configure a simple kubernetes cluster running in GCP.
 
 By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjusted by increasing `worker.count` in [terraform.tfvars](terraform/lab/terraform.tfvars)
