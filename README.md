@@ -2,7 +2,7 @@
 
 [![Lint Code Base](https://github.com/fred-lev/k8s-gcp-lab/actions/workflows/linter.yml/badge.svg?branch=main)](https://github.com/fred-lev/k8s-gcp-lab/actions/workflows/linter.yml)
 
-The code in this repo deploys and configure a simple kubernetes cluster running in GCP.
+The code in this repository deploys and configure a simple kubernetes cluster running in GCP.
 
 By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjusted by increasing `worker.count` in [terraform.tfvars](terraform/lab/terraform.tfvars)
 
@@ -86,6 +86,8 @@ cd $(git rev-parse --show-toplevel)/ansible && ansible-inventory --graph  -i inv
 cd $(git rev-parse --show-toplevel)/ansible && ansible-playbook playbooks/lab.yml -i inventory
 ```
 
+<!-- textlint-disable -->
+
 The playbook does the following:
 
 - turn off swap on all nodes
@@ -96,6 +98,8 @@ The playbook does the following:
 - install calico
 - join the worker nodes to the cluster
 - configure kubectl alias and bash completion on controller node
+
+<!-- textlint-enable -->
 
 ### add all inventory hosts to your local workstation hosts file
 
@@ -125,11 +129,11 @@ k8s-lab-worker-01       Ready    <none>                 30m   v1.20.1
 k8s-lab-worker-02       Ready    <none>                 30m   v1.20.1
 ```
 
-## Github actions
+## GitHub actions
 
-This repo is using GH Actions to execute [super-linter](https://github.com/github/super-linter).
+This repository is using GH Actions to execute [super-linter](https://github.com/github/super-linter).
 
-I am mostly interested in linting the ansible (YAML), terraform(HCL) and markdown files in the repo using:
+I am mostly interested in linting the ansible (YAML), terraform(HCL) and Markdown files in the repository using:
 
 - ansible-lint
 - markdownlint
