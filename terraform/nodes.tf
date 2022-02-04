@@ -1,16 +1,3 @@
-/*
-A key set in project metadata is propagated to every instance in the project.
-This resource configuration is prone to causing frequent diffs as Google adds SSH Keys when the SSH Button is pressed in the console.
-It is better to use OS Login instead.
-*/
-resource "google_compute_project_metadata" "my_ssh_key" {
-  metadata = {
-    ssh-keys = <<EOF
-      flevlab:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPuWU7PYZmxempCu8pw8YJ654xN+1H1HIOh24pqAvJTw lab@flev.fr
-    EOF
-  }
-}
-
 resource "google_compute_address" "controller" {
   name = "pub-ip-controller-01"
 }
