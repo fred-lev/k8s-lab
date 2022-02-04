@@ -9,7 +9,7 @@ region                = "asia-southeast1"
 subnetwork_cidr_range = "10.240.0.0/24"
 
 worker = {
-  count         = 2
+  count         = 3
   image_family  = "ubuntu-1804-lts"
   image_project = "ubuntu-os-cloud"
   machine_type  = "n1-standard-2"
