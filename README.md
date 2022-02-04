@@ -60,7 +60,7 @@ terraform init && terraform apply -auto-approve
 
 ## Ansible
 
-### Dynamic inventory for GCP compute instances
+### for GCP compute instances
 
 Install required python libraries:
 
@@ -73,18 +73,38 @@ cd $(git rev-parse --show-toplevel)
 $(brew --prefix)/bin/python3 -mpip install -r bootstrap/requirements.txt --user
 ```
 
+Enable OS login project wide
+
+```console
+gcloud compute project-info add-metadata \
+    --metadata enable-oslogin=TRUE
+```
+
+
 Create a service account and give it the `viewer` role on the current google cloud project.
 So it can be use by the dynamic inventory plugin to retrieve the details of the compute instances in the project.
+The service account also needs the `osAdminLogin` to be able to use it to login as root on the VMs.
 
 ```console
 export GCP_PROJECT=chromatic-being-340302
 cd $(git rev-parse --show-toplevel)/ansible
-gcloud iam service-accounts create ansible-dyn-inv --display-name="Service Account for Ansible Dynamic Inventory"
-gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-dyn-inv@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
-gcloud iam service-accounts keys create ansible_dyn_inv_sa_key.json --iam-account=ansible-dyn-inv@$GCP_PROJECT.iam.gserviceaccount.com
+gcloud iam service-accounts create ansible-sa --display-name="Service Account for Ansible"
+gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
+gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/compute.osAdminLogin
+gcloud iam service-accounts keys create ansible_sa_key.json --iam-account=ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com
+gcloud auth activate-service-account ansible-sa@chromatic-being-340302.iam.gserviceaccount.com --key-file=ansible_sa_key.json
+gcloud compute os-login ssh-keys add --key-file ~/.ssh/flevlab.pub
 ```
 
-**REM:** Add `ansible_dyn_inv_sa_key.json` , in your `.gitignore` and set `service_account_file:ansible_dyn_inv_sa_key.json` variable in [cks_project.gcp.yml](ansible/inventory/lab_gcp.yml) as well as the gcloud project name if changed.
+**REM:** Add `ansible_sa_key.json` , in your `.gitignore` and set `service_account_file:ansible_sa_key.json` variable in [lab_gcp.yml](ansible/inventory/lab_gcp.yml) as well as the gcloud project name if changed.
+
+Set the following global variables in [vars.yml](ansible/inventory/group_vars/all/vars.yml)
+
+```yaml
+---
+ansible_user: sa_111658XXXXXX91899
+ansible_ssh_private_key_file: ~/.ssh/flevlab.pub
+```
 
 Verify that you can list VM in the inventory using that service account:
 

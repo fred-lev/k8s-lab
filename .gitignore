@@ -9,6 +9,6 @@
 .DS_Store
 .cache/
 .envrc
-ansible/ansible_dyn_inv_sa_key.json
+ansible/ansible_sa_key.json
 terraform/.terraform.d/
 terraform/.terraform/
