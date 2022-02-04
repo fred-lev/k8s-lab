@@ -9,12 +9,6 @@
 .DS_Store
 .cache/
 .envrc
-.terraform.d/
-.terraform.lock.hcl
-.terraform/
-.tflint.d/
-.vagrant/
-/.tools/
-/terraform/**/*[Pp][Ll][Aa][Nn]
-/terraform/**/[Pp][Ll][Aa][Nn]*
-idea/
+terraform/lab/.terraform.d/
+terraform/lab/.terraform.lock.hcl
+terraform/lab/.terraform/
