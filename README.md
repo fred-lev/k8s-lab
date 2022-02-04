@@ -8,6 +8,28 @@ By default the cluster is made of 1 controller and 2 worker nodes. The number of
 
 The CNI plugin used by the cluster is [Calico](https://docs.projectcalico.org/about/about-calico).
 
+## Install gcloud SDK
+
+Refer to the doc [here](https://cloud.google.com/sdk/docs/downloads-interactive)
+
+```console
+curl https://sdk.cloud.google.com | bash
+```
+
+Provide path to `zsh` rc file to enable auto-completion.
+
+E.g:
+
+```console
+~/.zsh.d/.zsh_path
+```
+
+Initialize your gcloud env by running:
+
+```console
+gcloud init
+```
+
 ## Terraform
 
 Retrieve personal google cloud credentials (token):
@@ -21,8 +43,8 @@ gcloud auth application-default login
 Create a bucket in asia to store terraform remote state files as defined in [backend.tf](terraform/lab/backend.tf):
 
 ```console
-gsutil mb -l asia gs://tf-state-k8s-lab
-gsutil versioning set on gs://tf-state-k8s-lab
+gsutil mb -l asia gs://tf-state-k8s-lab-flev
+gsutil versioning set on gs://tf-state-k8s-lab-flev
 ```
 
 Set the bucket name and prefix in [backend.tf](terraform/lab/backend.tf)
