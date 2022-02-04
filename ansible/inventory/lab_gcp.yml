@@ -3,7 +3,7 @@
 # For more info check: https://github.com/ansible-collections/google.cloud/blob/master/plugins/inventory/gcp_compute.py
 plugin: google.cloud.gcp_compute
 projects:
-  - astral-option-316701
+  - chromatic-being-340302
 auth_kind: serviceaccount
 service_account_file: ansible_dyn_inv_sa_key.json
 keyed_groups:
