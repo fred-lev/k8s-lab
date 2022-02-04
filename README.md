@@ -77,7 +77,7 @@ Create a service account and give it the `viewer` role on the current google clo
 So it can be use by the dynamic inventory plugin to retrieve the details of the compute instances in the project.
 
 ```console
-export GCP_PROJECT=astral-option-316701
+export GCP_PROJECT=chromatic-being-340302
 cd $(git rev-parse --show-toplevel)/ansible
 gcloud iam service-accounts create ansible-dyn-inv --display-name="Service Account for Ansible Dynamic Inventory"
 gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-dyn-inv@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
