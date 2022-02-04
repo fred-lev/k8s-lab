@@ -36,7 +36,8 @@
     replace: "ExecStart=/usr/bin/dockerd --exec-opt native.cgroupdriver=systemd"
   notify: restart docker
 
-- meta: flush_handlers # restart docker service now if needed
+- name: restart docker service now if needed
+  meta: flush_handlers
 
 - name: add k8s repository key
   become: true
