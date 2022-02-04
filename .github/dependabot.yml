@@ -10,6 +10,6 @@ updates:
 
   # Maintain dependencies for Terraform
   - package-ecosystem: "terraform"
-    directory: "/terraform/lab"
+    directory: "/terraform/"
     schedule:
       interval: "daily"
