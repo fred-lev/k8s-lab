@@ -47,9 +47,9 @@
   become: true
   ansible.builtin.apt:
     name:
-      - kubeadm=1.21.2-00
-      - kubelet=1.21.2-00
-      - kubectl=1.21.2-00
+      - kubeadm={{ kubernetes_version }}-00
+      - kubelet={{ kubernetes_version }}-00
+      - kubectl={{ kubernetes_version }}-00
     update_cache: true
   register: result
   until: result is not failed
