@@ -18,6 +18,14 @@
           alias k=kubectl
           complete -F __start_kubectl k
 
+  handlers:
+    - name: restart docker
+      become: true
+      ansible.builtin.systemd:
+        name: docker
+        daemon_reload: true # because unit file
+        state: restarted
+
 - hosts: k8s_controller
   any_errors_fatal: true
   tasks:
