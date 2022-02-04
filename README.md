@@ -92,7 +92,7 @@ gcloud iam service-accounts create ansible-sa --display-name="Service Account fo
 gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
 gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/compute.osAdminLogin
 gcloud iam service-accounts keys create ansible_sa_key.json --iam-account=ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com
-gcloud auth activate-service-account ansible-sa@chromatic-being-340302.iam.gserviceaccount.com --key-file=ansible_sa_key.json
+gcloud auth activate-service-account ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --key-file=ansible_sa_key.json
 gcloud compute os-login ssh-keys add --key-file ~/.ssh/flevlab.pub
 ```
 
