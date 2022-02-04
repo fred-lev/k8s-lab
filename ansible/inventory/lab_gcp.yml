@@ -1,7 +1,7 @@
 # yamllint disable rule:line-length
 ---
 # For more info check: https://github.com/ansible-collections/google.cloud/blob/master/plugins/inventory/gcp_compute.py
-plugin: google.cloud.gcp_compute
+plugin: gcp_compute
 projects:
   - chromatic-being-340302
 auth_kind: serviceaccount
