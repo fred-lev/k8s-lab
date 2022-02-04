@@ -4,7 +4,7 @@ controller = {
   machine_type  = "n1-standard-2"
 }
 
-project               = "astral-option-316701"
+project               = "chromatic-being-340302"
 region                = "asia-southeast1"
 subnetwork_cidr_range = "10.240.0.0/24"
 
