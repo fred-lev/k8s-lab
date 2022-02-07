@@ -86,7 +86,7 @@ So it can be use by the dynamic inventory plugin to retrieve the details of the 
 The service account also needs the `osAdminLogin` to be able to use it to login as root on the VMs.
 
 ```console
-export GCP_PROJECT=chromatic-being-340302
+export GCP_PROJECT=melodic-sunbeam-340508
 cd $(git rev-parse --show-toplevel)/ansible
 gcloud iam service-accounts create ansible-sa --display-name="Service Account for Ansible"
 gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
@@ -120,6 +120,19 @@ cd $(git rev-parse --show-toplevel)/ansible && ansible-inventory --graph  -i inv
   |  |--k8s-lab-worker-01
   |  |--k8s-lab-worker-02
   |--@ungrouped:
+```
+
+### Alternatively use GKE and provision a cluster using gcloud
+
+```console
+gcloud beta container --project "melodic-sunbeam-340508" clusters create "flevlab" --zone "asia-southeast1-b" --no-enable-basic-auth --cluster-version "1.20.12-gke.1500" --release-channel "stable" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-standard" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --max-pods-per-node "110" --num-nodes "3" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/melodic-sunbeam-340508/global/networks/default" --subnetwork "projects/melodic-sunbeam-340508/regions/asia-southeast1/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --enable-shielded-nodes --tags "flevlab" --node-locations "asia-southeast1-b"
+```
+
+Allow access from laptop pub IP
+
+```console
+MYPUBIP=$(curl -s ifconfig.me)
+gcloud compute --project=melodic-sunbeam-340508 firewall-rules create lab-allow-my-pub-ip --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:22,tcp:6443,tcp:80,tcp:8080,tcp:30000-60000,icmp --source-ranges=$MYPUBIP/32
 ```
 
 ### Playbook for the initial cluster configuration
