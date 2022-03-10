@@ -15,4 +15,4 @@ worker = {
   machine_type  = "n1-standard-2"
 }
 
-zone = "asia-southeast1-b"
+zone = "asia-southeast1-a"
