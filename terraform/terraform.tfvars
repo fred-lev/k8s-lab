@@ -6,7 +6,7 @@ controller = {
   machine_type  = "n1-standard-2"
 }
 
-project               = "chromatic-being-340302"
+project               = "tidy-strand-340704"
 region                = "asia-southeast1"
 subnetwork_cidr_range = "10.240.0.0/24"
 
