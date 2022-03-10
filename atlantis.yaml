@@ -1,7 +1,7 @@
 ---
 version: 3
 projects:
-  - name: default workflow
+  - name: default
     dir: terraform
     workflow: myworkflow
 
