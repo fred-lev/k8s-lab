@@ -1,5 +1,3 @@
-# Add comment for test purposes
-
 controller = {
   image_family  = "ubuntu-1804-lts"
   image_project = "ubuntu-os-cloud"
