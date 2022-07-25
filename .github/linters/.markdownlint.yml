@@ -1,0 +1,8 @@
+default: true
+MD003:
+  style: "atx"
+MD004:
+  style: "dash"
+MD013: false
+MD044:
+  code_blocks: false
