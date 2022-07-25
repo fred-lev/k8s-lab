@@ -4,7 +4,7 @@
   tasks:
     - name: Add IP address of all hosts to localhost /etc/hosts file
       become: true
-      lineinfile:
+      ansible.builtin.lineinfile:
         dest: /etc/hosts
         regexp: ".*{{ item }}$"
         line: "{{ hostvars[item].ansible_host }} {{ item }}"

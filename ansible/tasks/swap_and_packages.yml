@@ -37,7 +37,7 @@
   notify: restart docker
 
 - name: restart docker service now if needed
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: add k8s repository key
   become: true
