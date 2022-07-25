@@ -80,7 +80,6 @@ gcloud compute project-info add-metadata \
     --metadata enable-oslogin=TRUE
 ```
 
-
 Create a service account and give it the `viewer` role on the current google cloud project.
 So it can be use by the dynamic inventory plugin to retrieve the details of the compute instances in the project.
 The service account also needs the `osAdminLogin` to be able to use it to login as root on the VMs.
