@@ -2,22 +2,22 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "4.42.1"
+  version     = "4.43.1"
   constraints = ">= 3.73.0"
   hashes = [
-    "h1:ycmwFXvw8H/6WpQOK6Gw1pssy0PzXkSZmPE+uhpYGZA=",
-    "zh:0a4a244b2b65c4e403ae3825d610949cf98c2593a6f6894c36ccd21f5dea7b1e",
-    "zh:0fc5dfaa24d1c790fd17eafbe768d3f8a15b450d80cf3d7ab18f3f81d521adb6",
-    "zh:37fe844eac11ee61da141fdc8502ecec9f722a828754dff7795499de5981de22",
-    "zh:3cacce3c045b19e9ebe985d3de939f0a281cdd8b20cce0a212b48593c172a16a",
-    "zh:429048016c8227e63bb325e6fd78b8f9abc72cf4257b7cd7cba6d950a8601f69",
-    "zh:5a183bace4306b2c3e678dcaa37fa65dd2b5cbcbccf4a859611afac827fd2524",
-    "zh:5c2b99af20eb931321b2b95eff9dbc56ba87744d1047120beb2a62a722baa98f",
-    "zh:87d39b32f6448adb4e17758794c25ecebd19f1889a1634d0b57391a24908a4ef",
-    "zh:8c787a08ff05c67e4182b248943143bcaee8568e4d88562ff7982f711a6664cf",
-    "zh:9dcdda7993d7bf21e660cb521f61a72f3ec5bf5c52f7f25502e4c7648b1f885e",
-    "zh:b122b5a9a521ee96636e517c41c4ead0bf0446df59657b5a136c8a9081449a96",
+    "h1:4X8WSgl2NEiLvATqphbXY871so2aVoZH1liF2oRJJAk=",
+    "zh:02e37a18cfbdfc2869ae2670c406365e2b797cbf36f584a76609473adbf1e970",
+    "zh:1d0ac1c1455afbcb1b2aedf33a808cfeb83f134e13732fd69a71314a72b678f0",
+    "zh:2a5c2afb845fe2991f1432d525254a69267e332e51bb86b6e8ca4306bd2d1b09",
+    "zh:33200a879edb9b2b81beecdf418c43c0726b2e70e1ae0b3883b521feb5ed53db",
+    "zh:3558c1d85061567621a3993cbe4b8da8a0a5de015c29f112222b01d1cac7010a",
+    "zh:6d0ecbee94a3aedb62647fdaf816e7a658ddb56b0ac219e9b9fe4add408d0dd3",
+    "zh:77ab4674908b43261f72888628008abc94afbe15ab841186f1297a4722c376e2",
+    "zh:b858fe418de53802146e17a7b96cafab954fbd6199a1d2ccf01ff5930bfb2af1",
+    "zh:be0446adcb747e3da5ed1dbb78e0480cac006b4c28d86b23222b14f7daf21cb3",
+    "zh:f1f3c9159d0402cbefd9b15ac46fca3b903746bbf4b846d0388131b070ff5d0c",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+    "zh:f71fe1e80315cc5bdc04186a2a8d805be579c1e8ff7b9819f955a5089fcc861f",
   ]
 }
 
