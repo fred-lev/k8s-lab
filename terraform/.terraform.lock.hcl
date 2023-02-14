@@ -2,22 +2,22 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "4.42.1"
+  version     = "4.53.0"
   constraints = ">= 3.73.0"
   hashes = [
-    "h1:ycmwFXvw8H/6WpQOK6Gw1pssy0PzXkSZmPE+uhpYGZA=",
-    "zh:0a4a244b2b65c4e403ae3825d610949cf98c2593a6f6894c36ccd21f5dea7b1e",
-    "zh:0fc5dfaa24d1c790fd17eafbe768d3f8a15b450d80cf3d7ab18f3f81d521adb6",
-    "zh:37fe844eac11ee61da141fdc8502ecec9f722a828754dff7795499de5981de22",
-    "zh:3cacce3c045b19e9ebe985d3de939f0a281cdd8b20cce0a212b48593c172a16a",
-    "zh:429048016c8227e63bb325e6fd78b8f9abc72cf4257b7cd7cba6d950a8601f69",
-    "zh:5a183bace4306b2c3e678dcaa37fa65dd2b5cbcbccf4a859611afac827fd2524",
-    "zh:5c2b99af20eb931321b2b95eff9dbc56ba87744d1047120beb2a62a722baa98f",
-    "zh:87d39b32f6448adb4e17758794c25ecebd19f1889a1634d0b57391a24908a4ef",
-    "zh:8c787a08ff05c67e4182b248943143bcaee8568e4d88562ff7982f711a6664cf",
-    "zh:9dcdda7993d7bf21e660cb521f61a72f3ec5bf5c52f7f25502e4c7648b1f885e",
-    "zh:b122b5a9a521ee96636e517c41c4ead0bf0446df59657b5a136c8a9081449a96",
+    "h1:66ifSyv+VguZiWUDyT5nU4KPkF6DOyCAO0h/Wol2H78=",
+    "zh:203c010f76ef5f5bb5fc3e02e712ed59eddcd7f1a41868e2e57f6e95000245f4",
+    "zh:22f872c417e7d0c6a736aa2da5e6aeed50e587c8dc03f21c825ab4997d48852a",
+    "zh:3a7c39e2af65a808bc349f69354f07ab3343b4f64d5fd4afc7000d2e44208250",
+    "zh:6931c3df70dbe8d6533a9044fed7453fb9cda4049ffb360bef7f2bc3422e055a",
+    "zh:6f8d2ce64a93c12c42971dcb442f196b4865353fe1d978521eb517dfcc07533b",
+    "zh:82c0dae4d7e360e63c2221af177df26cacdb646eb5fd2b5be08ca04f0e387b71",
+    "zh:9f066e0eab55876ba39bab9167f8556b014eee117129bfbc411dd94bdb73d9be",
+    "zh:ce5e468b807a84dc6fe16f262f6de4c07d2a1e5267e00acc9eb61ad350a622d3",
+    "zh:d92060c3c4a6a2dac6755ed1411698b1a58cac811f61d84c8e3a2a98be7e6146",
+    "zh:e59053ce6218c74840523b031de0851041a1948523c8cbc5e0af2c605961aea7",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+    "zh:f8c204d278663e2e65b5d3f74717dcc9e9b9781ddd8a99f37d7eb44cab25be03",
   ]
 }
 
