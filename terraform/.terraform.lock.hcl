@@ -2,22 +2,22 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "4.66.0"
+  version     = "4.74.0"
   constraints = ">= 3.73.0"
   hashes = [
-    "h1:ykmsArGX1/JTEbqMMUXA9s1H+IdtXnKanl5dh4YsaXo=",
-    "zh:141cddc714dec246957a47cb4103b34302222fc93a87b64de88116b22ebb0ea1",
-    "zh:276ebd75cb7c265d12b2c611a5f8d38fd6b892ef3edec1b845a934721db794e5",
-    "zh:574ae7b4808c1560b5a55a75ca2ad5d8ff6b5fb9dad6dffce3fae7ff8ccf78a9",
-    "zh:65309953f79827c23cc800fc093619a1e0e51a53e2429e9b04e537a11012f989",
-    "zh:6d67d3edea47767a873c38f1ff519d4450d8e1189a971bda7b0ffde9c9c65a86",
-    "zh:7fb116be869e30ee155c27f122d415f34d1d5de735d1fa9c4280cac71a42e8f4",
-    "zh:8a95ed92bb4547f4a40c953a6bd1db659b739f67adcacd798b11fafaec55ee67",
-    "zh:94f0179e84eb74823d8be4781b0a15f7f34ee39a7b158075504c882459f1ab23",
-    "zh:a58a7c5ace957cb4395f4b3bb11687e3a5c79362a744107f16623118cffc9370",
-    "zh:ab38b66f3c5c00df64c86fb4e47caef8cf451d5ed1f76845fd8b2c59628dc18a",
-    "zh:cc6bb1799e38912affc2a5b6f1c52b08f286d3751206532c04482b5ca0418eb6",
+    "h1:sod0KZScwUDWiOEEBY7JSXj8kNxiP8wPjqpAauiaTeI=",
+    "zh:60904193c367b1ba9a3cb1bd86ca469ffcec2f7237e59adf4b0a34c84b2fa9ff",
+    "zh:6e5ac12f3fefc23907a94e5f6040118c978af76ab5deb60a5b80110c1c8ade09",
+    "zh:9fc0ae0f97ab598c27fae0a6b19e82c13fd59d020d7cdfeeebdbe41c4a8216ef",
+    "zh:aa2346dbd9f22e56d011b1b741e1829bc78633cc3da704d7c4e9636c314541fa",
+    "zh:ca692e666253cca77c6ff68423bf940c7f249a8b4f4af9b80c1a7079808b8ada",
+    "zh:cbaf541db823cff4379e294ad696bef2940c3eff863fa7fd340ea978872dfdaf",
+    "zh:d1f6fba2f64d51a804bf4f4e90b7809e26fa0539a1119e55907cc501add6a5d2",
+    "zh:d556680c85b8c90557b469d30a8082f056a2b724f812b97da6505a9d78139854",
+    "zh:ea7cd2d4fa940e3518221a67f24b2ff8d795c325fe8b95fd149ac0cc3e1e944a",
+    "zh:eca542a0e4caed8ab6a30eb0199755dfc2938083942a233d6a5ef60e204ac67c",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+    "zh:f729b6f01050dd443b98cc5e7911102cdc8209e250cc1c2568aa37ba74b7c894",
   ]
 }
 
