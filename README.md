@@ -4,7 +4,7 @@
 
 The code in this repository deploys and configure a simple kubernetes cluster running in GCP.
 
-By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjusted by increasing `worker.count` in [terraform.tfvars](terraform/lab/terraform.tfvars)
+By default the cluster is made of 1 controller and 2 worker nodes. The number of workers can be adjusted by increasing `worker.count` in [terraform.tfvars](terraform/terraform.tfvars)
 
 The CNI plugin used by the cluster is [Calico](https://docs.projectcalico.org/about/about-calico).
 
@@ -40,19 +40,30 @@ gcloud auth application-default login
 
 **REM:** The official doc recommend [not to use service accounts during development on local workstation](https://cloud.google.com/iam/docs/best-practices-for-using-and-managing-service-accounts#development)
 
-Create a bucket in asia to store terraform remote state files as defined in [backend.tf](terraform/lab/backend.tf):
+Create a bucket in asia to store terraform remote state files as defined in [backend.tf](terraform/backend.tf):
+
+
+**REM:** You may need to set the billing account if you are using a new project
 
 ```console
-gsutil mb -l asia gs://tf-state-k8s-lab-flev
-gsutil versioning set on gs://tf-state-k8s-lab-flev
+export PROJECT_ID=$(gcloud config get-value project)
+export ACCOUNT_ID=$(gcloud config get-value account)
+gcloud billing projects link $PROJECT_ID --billing-account=$ACCOUNT_ID
 ```
 
-Set the bucket name and prefix in [backend.tf](terraform/lab/backend.tf)
+
+```console
+export PROJECT_ID=$(gcloud config get-value project)
+gsutil mb -l asia gs://tf-state-$PROJECT_ID
+gsutil versioning set on gs://tf-state-$PROJECT_ID
+```
+
+Set the bucket name and prefix in [backend.tf](terraform/backend.tf)
 
 Run the following command to initialize the remote backend and apply the exiting terraform config:
 
 ```bash
-cd $(git rev-parse --show-toplevel)/terraform/lab
+cd $(git rev-parse --show-toplevel)/terraform
 terraform init && terraform apply -auto-approve
 ```
 
@@ -60,17 +71,28 @@ terraform init && terraform apply -auto-approve
 
 ## Ansible
 
+This repository use pipenv to manage python dependencies.
+
 ### for GCP compute instances
 
 Install required python libraries:
 
-The ansible dynamic inventory GCP module require both the requests and the google-auth libraries to be installed [requirements](bootstrap/requirements.txt)
+The ansible dynamic inventory GCP module require both the requests and the google-auth libraries to be installed.
 
 Passlib is used to generate password hashes for the lab VM users.
 
+On arch Linux pipenv is install using Pacman:
+
+```sh
+sudo pacman -S python-pipenv
+```
+
+For other OS please refer to the [official pipenv documentation](https://pipenv.pypa.io/)
+
 ```sh
 cd $(git rev-parse --show-toplevel)
-$(brew --prefix)/bin/python3 -mpip install -r bootstrap/requirements.txt --user
+pipenv install
+pipenv shell
 ```
 
 Enable OS login project wide
@@ -85,13 +107,14 @@ So it can be use by the dynamic inventory plugin to retrieve the details of the 
 The service account also needs the `osAdminLogin` to be able to use it to login as root on the VMs.
 
 ```console
-export GCP_PROJECT=melodic-sunbeam-340508
+export PROJECT_ID=$(gcloud config get-value project)
 cd $(git rev-parse --show-toplevel)/ansible
 gcloud iam service-accounts create ansible-sa --display-name="Service Account for Ansible"
-gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/viewer
-gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --role=roles/compute.osAdminLogin
-gcloud iam service-accounts keys create ansible_sa_key.json --iam-account=ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com
-gcloud auth activate-service-account ansible-sa@$GCP_PROJECT.iam.gserviceaccount.com --key-file=ansible_sa_key.json
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:ansible-sa@$PROJECT_ID.iam.gserviceaccount.com --role=roles/viewer
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:ansible-sa@$PROJECT_ID.iam.gserviceaccount.com --role=roles/compute.osAdminLogin
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:ansible-sa@$PROJECT_ID.iam.gserviceaccount.com --role=roles/compute.Admin
+gcloud iam service-accounts keys create ansible_sa_key.json --iam-account=ansible-sa@$PROJECT_ID.iam.gserviceaccount.com
+gcloud auth activate-service-account ansible-sa@$PROJECT_ID.iam.gserviceaccount.com --key-file=ansible_sa_key.json
 gcloud compute os-login ssh-keys add --key-file ~/.ssh/flevlab.pub
 ```
 
@@ -131,7 +154,7 @@ Allow access from laptop pub IP
 
 ```console
 MYPUBIP=$(curl -s ifconfig.me)
-gcloud compute --project=melodic-sunbeam-340508 firewall-rules create lab-allow-my-pub-ip --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:22,tcp:6443,tcp:80,tcp:8080,tcp:30000-60000,icmp --source-ranges=$MYPUBIP/32
+gcloud compute --project=$PROJECT_ID firewall-rules create lab-allow-my-pub-ip --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:22,tcp:6443,tcp:80,tcp:8080,tcp:30000-60000,icmp --source-ranges=$MYPUBIP/32
 ```
 
 ### Playbook for the initial cluster configuration
