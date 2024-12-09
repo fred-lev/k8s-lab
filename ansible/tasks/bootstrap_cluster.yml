@@ -6,8 +6,6 @@
     argv:
       - kubeadm
       - init
-      - --kubernetes-version
-      - "{{ kubernetes_version }}"
       - --pod-network-cidr
       - 192.168.0.0/16
     creates: /etc/kubernetes/manifests/etcd.yaml
