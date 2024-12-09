@@ -1,5 +1,5 @@
 ---
-- name: disable swap
+- name: Disable swap
   become: true
   ansible.builtin.command:
     argv:
@@ -7,14 +7,14 @@
       - -a
   changed_when: false
 
-- name: disable swap in fstab
+- name: Disable swap in fstab
   become: true
   ansible.builtin.replace:
     path: /etc/fstab
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'
 
-- name: install docker and extra packages
+- name: Install docker and extra packages
   become: true
   ansible.builtin.apt:
     name:
@@ -30,7 +30,7 @@
   register: result
   until: result is not failed
 
-- name: use systemd in docker
+- name: Use systemd in docker
   become: true
   ansible.builtin.replace:
     path: /lib/systemd/system/docker.service
@@ -38,17 +38,17 @@
     replace: "ExecStart=/usr/bin/dockerd --exec-opt native.cgroupdriver=systemd"
   notify: restart docker
 
-- name: restart docker service now if needed
+- name: Restart docker service now if needed
   ansible.builtin.meta: flush_handlers
 
-- name: create apt keyring directory if necessary
+- name: Create apt keyring directory if necessary
   become: true
   ansible.builtin.file:
     path: /etc/apt/keyrings
     mode: 0755
     state: directory
 
-- name: add k8s repository key
+- name: Add k8s repository key
   become: true
   ansible.builtin.apt_key:
     url: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key"
@@ -56,15 +56,15 @@
   register: result
   until: result is not failed
 
-- name: add k8s repository
+- name: Add k8s repository
   become: true
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /"
-    filename: kubernetes
+    filename: Kubernetes
     mode: 0444
     update_cache: true
 
-- name: install k8s packages
+- name: Install k8s packages
   become: true
   ansible.builtin.apt:
     name:
@@ -75,7 +75,7 @@
   register: result
   until: result is not failed
 
-- name: put k8s packages on hold
+- name: Put k8s packages on hold
   become: true
   ansible.builtin.command:
     argv:

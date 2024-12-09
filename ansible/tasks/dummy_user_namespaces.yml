@@ -1,5 +1,5 @@
 ---
-- name: create test users
+- name: Create test users
   become: true
   ansible.builtin.user:
     createhome: true
@@ -13,7 +13,7 @@
   no_log: true
   changed_when: false
 
-- name: create random namespaces
+- name: Create random namespaces
   ansible.builtin.command:
     argv:
       - kubectl

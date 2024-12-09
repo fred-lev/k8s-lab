@@ -1,7 +1,7 @@
 ---
-- hosts: all
+- name: Adding nodes to local etc hosts
+  hosts: all
   gather_facts: false
-  name: Adding nodes to local etc hosts
   tasks:
     - name: Add IP address of all hosts to localhost /etc/hosts file
       become: true

@@ -1,6 +1,6 @@
 # yamllint disable rule:line-length
 ---
-- name: initialize the controller node
+- name: Initialize the controller node
   become: true
   ansible.builtin.command:
     argv:
@@ -11,7 +11,7 @@
     creates: /etc/kubernetes/manifests/etcd.yaml
   when: inventory_hostname in groups['k8s_controller']
 
-- name: setup kube config directory
+- name: Setup kube config directory
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.kube"
     owner: "{{ ansible_env.USER }}"
@@ -20,7 +20,7 @@
     state: directory
   when: inventory_hostname in groups['k8s_controller']
 
-- name: copy admin kube config
+- name: Copy admin kube config
   become: true
   ansible.builtin.copy:
     src: /etc/kubernetes/admin.conf
@@ -31,7 +31,7 @@
     remote_src: true
   when: inventory_hostname in groups['k8s_controller']
 
-- name: install calico from the manifest
+- name: Install calico from the manifest
   ansible.builtin.command:
     argv:
       - kubectl
@@ -41,7 +41,7 @@
   changed_when: false
   when: inventory_hostname in groups['k8s_controller']
 
-- name: generate join token
+- name: Generate join token
   ansible.builtin.command:
     argv:
       - kubeadm
@@ -55,7 +55,7 @@
   no_log: true
   when: inventory_hostname in groups['k8s_workers']
 
-- name: join worker nodes
+- name: Join worker nodes
   become: true
   ansible.builtin.command:
     cmd: "{{ kubeadm_join_cmd.results.0.stdout }} --ignore-preflight-errors=swap"
