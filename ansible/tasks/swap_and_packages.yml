@@ -19,7 +19,9 @@
   ansible.builtin.apt:
     name:
       - apt-transport-https
+      - ca-certificates
       - bash-completion
+      - gpg
       - curl
       - docker.io
       - etcd-client
@@ -39,18 +41,26 @@
 - name: restart docker service now if needed
   ansible.builtin.meta: flush_handlers
 
+- name: create apt keyring directory if necessary
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    mode: 0755
+    state: directory
+
 - name: add k8s repository key
   become: true
   ansible.builtin.apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg.asc
+    url: "https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key"
+    keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   register: result
   until: result is not failed
 
 - name: add k8s repository
   become: true
   ansible.builtin.apt_repository:
-    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-    filename: k8s-repo
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /"
+    filename: kubernetes
     mode: 0444
     update_cache: true
 
@@ -58,9 +68,9 @@
   become: true
   ansible.builtin.apt:
     name:
-      - kubeadm={{ kubernetes_version }}-00
-      - kubelet={{ kubernetes_version }}-00
-      - kubectl={{ kubernetes_version }}-00
+      - kubeadm
+      - kubelet
+      - kubectl
     update_cache: true
   register: result
   until: result is not failed
