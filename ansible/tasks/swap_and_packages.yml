@@ -45,7 +45,7 @@
   become: true
   ansible.builtin.file:
     path: /etc/apt/keyrings
-    mode: 0755
+    mode: "0755"
     state: directory
 
 - name: Add k8s repository key
@@ -61,7 +61,7 @@
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /"
     filename: Kubernetes
-    mode: 0444
+    mode: "0444"
     update_cache: true
 
 - name: Install k8s packages

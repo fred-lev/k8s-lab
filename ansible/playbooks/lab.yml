@@ -27,7 +27,8 @@
         daemon_reload: true # because unit file
         state: restarted
 
-- hosts: k8s_controller
+- name: Generate users and k8s resources
+  hosts: k8s_controller
   any_errors_fatal: true
   tasks:
     - name: Include dummy user and namespaces creation

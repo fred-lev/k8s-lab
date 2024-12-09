@@ -2,6 +2,7 @@
 - name: Adding nodes to local etc hosts
   hosts: all
   gather_facts: false
+  strategy: linear
   tasks:
     - name: Add IP address of all hosts to localhost /etc/hosts file
       become: true
