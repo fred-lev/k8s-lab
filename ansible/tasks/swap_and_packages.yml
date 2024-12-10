@@ -36,7 +36,7 @@
     path: /lib/systemd/system/docker.service
     regexp: "^ExecStart=/usr/bin/dockerd"
     replace: "ExecStart=/usr/bin/dockerd --exec-opt native.cgroupdriver=systemd"
-  notify: restart docker
+  notify: Restart docker
 
 - name: Restart docker service now if needed
   ansible.builtin.meta: flush_handlers
