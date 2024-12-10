@@ -38,7 +38,7 @@ resource "google_compute_firewall" "external" {
     ports    = ["22", "6443", "80", "8080", "30000-60000"]
   }
 
-  source_ranges = ["${data.http.main.body}/32"]
+  source_ranges = ["${data.http.main.response_body}/32"]
 }
 
 resource "google_compute_network" "main" {
