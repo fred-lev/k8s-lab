@@ -193,17 +193,18 @@ ssh k8s-lab-controller-01
 ```bash
 user@k8s-lab-controller-01:~$ k cluster-info
 Kubernetes control plane is running at https://10.240.0.11:6443
-KubeDNS is running at https://10.240.0.11:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+CoreDNS is running at https://10.240.0.11:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
 ```bash
 user@k8s-lab-controller-01:~$ k get nodes
-NAME                    STATUS   ROLES                  AGE   VERSION
-k8s-lab-controller-01   Ready    control-plane,master   30m   v1.20.1
-k8s-lab-worker-01       Ready    <none>                 30m   v1.20.1
-k8s-lab-worker-02       Ready    <none>                 30m   v1.20.1
+NAME                    STATUS     ROLES           AGE    VERSION
+k8s-lab-controller-01   Ready      control-plane   112s   v1.31.3
+k8s-lab-worker-01       Ready      <none>          35s    v1.31.3
+k8s-lab-worker-02       NotReady   <none>          34s    v1.31.3
+k8s-lab-worker-03       NotReady   <none>          35s    v1.31.3
 ```
 
 ## GitHub actions
